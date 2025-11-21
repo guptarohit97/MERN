@@ -12,6 +12,7 @@ router.post("/products", async (req, res) => {
       error: "Provide all fields",
     });
   const newProduct = new Product(product);
+  const savedProduct=await newProduct.save();
 
   try {
     await newProduct.save();
@@ -22,7 +23,7 @@ router.post("/products", async (req, res) => {
     });
   } catch (error) {
     console.error("Error in Creating product:", error.message);
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Server Error",
     });
